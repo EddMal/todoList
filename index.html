@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ToDo list</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <!-- X-Content-Type-Options: nosniff -->
+    <link rel="stylesheet" href="CSS/style.css">
+    <link rel="icon" type="image/png" href="images/HR.png">
+</head>
+
+<!--Better way to solve overflow?? caused by adding of the container-->
+
+<body style="overflow-x:hidden;">
+
+    <header style="margin-top: 10%;">
+        <h1 style="text-align: center;">
+         
+           Todos
+          
+        </h1>
+    </header>
+
+    <main class="main" id="main">
+        Enter item you want to add to the list:
+        <form id="search-Form">
+                     <input type="text" id="userInput" placeholder="Item">
+         </form>
+
+        <button id="btn0" class="btn btn-info">Add</button>
+        <button id="btn1" class="btn btn-info" style="background-color: rgb(35, 248, 124);">Undo</button>
+        <div id="text"></div>
+        <br>
+
+
+
+
+    </main>
+    <!--Add jQuery ?? test without first-->
+    <!-- type = module , when usage of multiple files-->
+    
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+        crossorigin="anonymous"></script>
+    <!-- Place my scripts last, prevents bootstrap from overwriting content when same name is used-->
+    <script type="module" src="./javaScript/runScripts.js"> </script>
+
+</body>
+
+</html>
