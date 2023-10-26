@@ -6,4 +6,5 @@
 .checked{
     font-family: cursive; 
     text-decoration-line: line-through;
+    background-color: gainsboro;
 }

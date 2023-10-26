@@ -27,7 +27,7 @@ inputForm['userInput'].addEventListener('keypress', function (e) {
         // Cancel the default action, if needed
         e.preventDefault();
         // Trigger the button element with a click
-        app.userInput = e.target.value;
+        app.userInput = e.target.value.trim();
         console.log(e.target.value);
         document.getElementById("btn0").click();
       }
@@ -37,44 +37,47 @@ inputForm['userInput'].addEventListener('keypress', function (e) {
 //Add respons when no character is found.
 const AddItem = () =>{
     
-    const formData = inputForm['userInput'].value;
+    let formData = inputForm['userInput'].value;
+    formData = formData.trim();
     console.log(formData);
-    app.userInput= formData;
-
-    if( app.items.indexOf(`${app.userInput}`) === -1)
+    
+    formData= formData.split(' ').join('_');
+    if( app.items.indexOf(`${formData}`) === -1)
     {
+        app.userInput= formData;
         app.items[app.id] = formData;
-        app.lastItemId = app.id;
+        app.addedItemId = app.id;
         app.id++;
         console.log(app.items);
-    
+        
    
     textDiv.innerHTML += `
             
-            <div class="container-fluid" id="${app.userInput}Container">
+            <div class="container-fluid" id="${formData}Container">
                 <br>
                 <br>
                 <div class="row" style="align-content: center;">
                     <div class="col-3">
-                        <button id="${app.userInput}Check" class="btn btn-info" style="background-color: yellow;"> Check </button>
+                        <button id="${formData}Check" class="btn btn-info" style="background-color: yellow;"> Check </button>
                     </div>
                     <div class="col-3 offset-1">
-                         <h5 style="text-align: center;"> ${app.userInput}</h5>
+                         <h5 style="text-align: center;" id="${formData}Text"> ${app.userInput}</h5>
                     </div>
                     <div class="col-3 offset-1">
-                        <button id="${app.userInput}" class="btn btn-info" style="background-color: rgb(248, 85, 35);"> Remove ${app.userInput}  </button>
+                        <button id="${formData}" class="btn btn-info" style="background-color: rgb(248, 85, 35);"> Remove ${app.userInput}  </button>
                      </div>
                 </div>
                 <br>
             </div>
             
             `
+               
     }
     else
     {window.alert('Item is already on the list');}
   
 }
-//does not work as thought:
+
 const UndoItem = () =>{
     console.log(app.addedItemId);
     if(app.id !==0)
@@ -134,6 +137,31 @@ function RemoveItem (id){
     console.log(app.id);
 }
 
+function CheckItem (id){
+    let CheckedItem = id;
+    console.log('Before Slice');
+    console.log(CheckedItem);
+    CheckedItem = CheckedItem.slice(0,-5)
+    console.log('Slice');
+    console.log(CheckedItem);
+    if( app.items.indexOf(`${CheckedItem}`) !== -1)
+    {
+        if ( document.getElementById(`${CheckedItem}Text`).className.match(/(?:^|\s)checked(?!\S)/) ){
+            console.log('no class');
+            document.getElementById(`${CheckedItem}Text`).className =
+                document.getElementById(`${CheckedItem}Text`).className.replace
+                ( /(?:^|\s)checked(?!\S)/g , '' )
+        }
+        else{
+            document.getElementById(`${CheckedItem}Text`).className += " checked";
+            console.log('class checked');
+            //Change name on button.
+
+           
+        }
+
+    }
+}
 
 btn0.addEventListener('click', AddItem);
 
@@ -146,14 +174,16 @@ main.addEventListener('click', function (e) {
     console.log(e.target.id);
 
     let buttonChecked = e.target.id;
-    buttonChecked = buttonChecked.slice(-7)
+    //keeps the wrong part of string.
+    buttonChecked = buttonChecked.slice(-5)
+    console.log('buttonChecked:');
     console.log(buttonChecked);
 
     if( app.items.indexOf(`${e.target.id}`) !== -1){
         RemoveItem(e.target.id);
     }
     else if(buttonChecked==='Check'){
-        
+        CheckItem (e.target.id);
     }
 });
 
