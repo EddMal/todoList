@@ -15,6 +15,7 @@ const app = {
     inputValidated: null,
     lastButtonPressed: null,
     id : 0,
+    addedItemId:0,
     items: []
 };
 
@@ -43,6 +44,7 @@ const AddItem = () =>{
     if( app.items.indexOf(`${app.userInput}`) === -1)
     {
         app.items[app.id] = formData;
+        app.lastItemId = app.id;
         app.id++;
         console.log(app.items);
     
@@ -72,31 +74,38 @@ const AddItem = () =>{
     {window.alert('Item is already on the list');}
   
 }
-
+//does not work as thought:
 const UndoItem = () =>{
-    let removeID = app.id+1;
+    console.log(app.addedItemId);
+    if(app.id !==0)
+    {
+    let removeID = app.addedItemId;
     console.log(removeID);
-    //--Make function for
-    let tempArray = app.items.splice(removeID,1);
-    app.items = [];
-    let i = 0;
-     for (element in tempArray){
-        if (element !== (null || undefined)){
-            app.items[i] = element;
-            i++;
-
-        }    
-    }  
-    console.log(app.items);
-    //--Make function for end. 
+       //--Make function for
+       app.items.splice(removeID,1);
+       let tempArray =app.items;
+       console.log('temp array:');
+       console.log(tempArray);
+       //app.items = [];
+       app.items = tempArray;
+        /* for (element in tempArray){
+           if (element !== (null || undefined)){
+               app.items[i] = element;
+               i++;
+   
+           }    
+       }   */
+       console.log(app.items);
+       //--Make function for end.  
     let removeDiv = document.querySelector(`#${app.userInput}Container`);
     console.log(removeDiv);
     textDiv.removeChild(removeDiv);
     app.id--;
     console.log('id now:');
     console.log(app.id);
+    }
 }
-//does not work as thought:
+
 function RemoveItem (id){
     let removeID = app.items.indexOf(`${id}`)
     console.log(removeID);
