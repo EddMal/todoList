@@ -34,7 +34,7 @@ inputForm['userInput'].addEventListener('keypress', function (e) {
 });
 
 //Add respons when no character is found.
-const HandleItem = () =>{
+const AddItem = () =>{
     
     const formData = inputForm['userInput'].value;
     console.log(formData);
@@ -71,7 +71,19 @@ const HandleItem = () =>{
   
 }
 
-btn0.addEventListener('click', HandleItem);
+const UndoItem = () =>{
+    let removeID = app.id+1;
+    console.log(removeID);
+        app.items.splice(removeID,1);    
+    let removeDiv = document.querySelector(`#${app.userInput}container`);
+    console.log(removeDiv);
+    textDiv.removeChild(removeDiv)
+  
+}
+
+btn0.addEventListener('click', AddItem);
+
+btn1.addEventListener('click', UndoItem);
 
 main.addEventListener('click', function (e) {
     e.preventDefault();
