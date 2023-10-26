@@ -3,3 +3,7 @@
     height: 30vh;
 }
 
+.checked{
+    font-family: cursive; 
+    text-decoration-line: line-through;
+}

@@ -14,7 +14,8 @@ const app = {
     userInput: null,
     inputValidated: null,
     lastButtonPressed: null,
-    items: null
+    id : 0,
+    items: []
 };
 
 console.log('Start');
@@ -38,24 +39,36 @@ const HandleItem = () =>{
     const formData = inputForm['userInput'].value;
     console.log(formData);
     app.userInput= formData;
-    app.items += formData;
-    console.log(app.items);
-    
-    //
-    textDiv.innerHTML += `
-            <div class="card" style="text-align: center;">
-                <div>
-                <br>
-                    <h5 class="card-title"> ${app.userInput}                               
-                    
-                    <button id="${app.userInput}checked" class="btn btn-info" style="background-color: yellow;"> Done </button>
 
-                    </h5>
-                    <br>
-                    <button id=${app.userInput} class="btn btn-info" style="background-color: rgb(248, 85, 35);"> Remove ${app.userInput}  </button>
+    if( app.items.indexOf(`${app.userInput}`) === -1)
+    {
+        app.items[app.id] = formData;
+        app.id++;
+        console.log(app.items);
+    
+   
+    textDiv.innerHTML += `
+            <br>
+            <br>
+            <div class="container-fluid" id="${app.userInput}container">
+                <div class="row" style="align-content: center;">
+                    <div class="col-3">
+                        <button id="${app.userInput}checked" class="btn btn-info" style="background-color: yellow;"> Check </button>
+                    </div>
+                    <div class="col-3 offset-1">
+                         <h5 style="text-align: center;"> ${app.userInput}</h5>
+                    </div>
+                    <div class="col-3 offset-1">
+                        <button id="${app.userInput}" class="btn btn-info" style="background-color: rgb(248, 85, 35);"> Remove ${app.userInput}  </button>
+                     </div>
                 </div>
             </div>
+            <br>
             `
+    }
+    else
+    {window.alert('Item is already on the list');}
+  
 }
 
 btn0.addEventListener('click', HandleItem);
