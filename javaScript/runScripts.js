@@ -48,12 +48,13 @@ const AddItem = () =>{
     
    
     textDiv.innerHTML += `
-            <br>
-            <br>
-            <div class="container-fluid" id="${app.userInput}container">
+            
+            <div class="container-fluid" id="${app.userInput}Container">
+                <br>
+                <br>
                 <div class="row" style="align-content: center;">
                     <div class="col-3">
-                        <button id="${app.userInput}checked" class="btn btn-info" style="background-color: yellow;"> Check </button>
+                        <button id="${app.userInput}Check" class="btn btn-info" style="background-color: yellow;"> Check </button>
                     </div>
                     <div class="col-3 offset-1">
                          <h5 style="text-align: center;"> ${app.userInput}</h5>
@@ -62,8 +63,9 @@ const AddItem = () =>{
                         <button id="${app.userInput}" class="btn btn-info" style="background-color: rgb(248, 85, 35);"> Remove ${app.userInput}  </button>
                      </div>
                 </div>
+                <br>
             </div>
-            <br>
+            
             `
     }
     else
@@ -74,12 +76,51 @@ const AddItem = () =>{
 const UndoItem = () =>{
     let removeID = app.id+1;
     console.log(removeID);
-        app.items.splice(removeID,1);    
-    let removeDiv = document.querySelector(`#${app.userInput}container`);
+    //--Make function for
+    let tempArray = app.items.splice(removeID,1);
+    app.items = [];
+    let i = 0;
+     for (element in tempArray){
+        if (element !== (null || undefined)){
+            app.items[i] = element;
+            i++;
+
+        }    
+    }  
+    console.log(app.items);
+    //--Make function for end. 
+    let removeDiv = document.querySelector(`#${app.userInput}Container`);
+    console.log(removeDiv);
+    textDiv.removeChild(removeDiv);
+    app.id--;
+    console.log('id now:');
+    console.log(app.id);
+}
+
+function RemoveItem (id){
+    let removeID = app.items.indexOf(`${id}`)
+    console.log(removeID);
+    removeID =+ 1;
+    console.log(removeID);
+    //--Make function for
+    let tempArray = app.items.splice(removeID,1);
+    app.items = [];
+    let i = 0;
+     for (element in tempArray){
+        if (element !== (null || undefined)){
+            app.items[i] = element;
+            i++;
+
+        }    
+    }  
+    console.log(app.items);
+    //--Make function for end.  
+    let removeDiv = document.querySelector(`#${id}Container`);
     console.log(removeDiv);
     textDiv.removeChild(removeDiv)
-  
+    app.id--;
 }
+
 
 btn0.addEventListener('click', AddItem);
 
@@ -88,9 +129,18 @@ btn1.addEventListener('click', UndoItem);
 main.addEventListener('click', function (e) {
     e.preventDefault();
 
-    let todo = e.target.id;
-    console.log(todo);
-    app.lastButtonPressed = todo
-    
+
+    console.log(e.target.id);
+
+    let buttonChecked = e.target.id;
+    buttonChecked = buttonChecked.slice(-7)
+    console.log(buttonChecked);
+
+    if( app.items.indexOf(`${e.target.id}`) !== -1){
+        RemoveItem(e.target.id);
+    }
+    else if(buttonChecked==='Check'){
+        
+    }
 });
 
