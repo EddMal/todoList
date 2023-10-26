@@ -96,29 +96,33 @@ const UndoItem = () =>{
     console.log('id now:');
     console.log(app.id);
 }
-
+//does not work as thought:
 function RemoveItem (id){
     let removeID = app.items.indexOf(`${id}`)
     console.log(removeID);
-    removeID =+ 1;
+    //removeID =+ 1;
     console.log(removeID);
     //--Make function for
-    let tempArray = app.items.splice(removeID,1);
-    app.items = [];
-    let i = 0;
-     for (element in tempArray){
+    app.items.splice(removeID,1);
+    let tempArray =app.items;
+    console.log('temp array:');
+    console.log(tempArray);
+    //app.items = [];
+    app.items = tempArray;
+     /* for (element in tempArray){
         if (element !== (null || undefined)){
             app.items[i] = element;
             i++;
 
         }    
-    }  
+    }   */
     console.log(app.items);
     //--Make function for end.  
     let removeDiv = document.querySelector(`#${id}Container`);
     console.log(removeDiv);
     textDiv.removeChild(removeDiv)
     app.id--;
+    console.log(app.id);
 }
 
 
